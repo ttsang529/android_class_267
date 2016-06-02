@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -14,6 +16,9 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     EditText editText;
     RadioGroup radioGroup;
+    CheckBox checkBox;
+    String name="";
+    String sex="";
     String selectedSex = "Male";
 
 
@@ -28,6 +33,20 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textview);
         editText = (EditText) findViewById(R.id.editText);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        checkBox = (CheckBox) findViewById(R.id.checkBox);
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                changeTextView();
+                if (checkBox.isChecked()){
+                    radioGroup.setVisibility(View.GONE);
+                }else{
+                    radioGroup.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -53,11 +72,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void click(View view)
     {
-        String content = editText.getText().toString();
-        content = content +"  sex:"+selectedSex;
-        textView.setText(content);
+        name = editText.getText().toString();
+        sex=selectedSex;
+        changeTextView();
         editText.setText("");
 
+    }
+
+    public void changeTextView(){
+        if (checkBox.isChecked()){
+            textView.setText(name);
+        }else{
+            String content = name +"  sex:"+sex;
+            textView.setText(content);
+        }
     }
 
 }
