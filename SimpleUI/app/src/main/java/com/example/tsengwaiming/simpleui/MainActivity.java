@@ -11,7 +11,14 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -21,9 +28,14 @@ public class MainActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     CheckBox checkBox;
     ListView listview;
+    Spinner storeSpinner;
+
+    //ArrayList<String> drinks = new ArrayList<>();
+    ArrayList<Order> orders = new ArrayList<>();
     String name="";
     String sex="";
     String selectedSex = "Male";
+    String drinkName = "black tea";
 
 
 
@@ -39,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         checkBox = (CheckBox) findViewById(R.id.checkBox);
         listview = (ListView) findViewById(R.id.listView);
+        storeSpinner = (Spinner) findViewById(R.id.spinner);
+
+
+        setupListView();
+        setupSpinner();
 
 
 
@@ -80,11 +97,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void click(View view)
     {
-        name = editText.getText().toString();
+       // name = editText.getText().toString();
+        String note = editText.getText().toString();
         sex=selectedSex;
-        changeTextView();
+        //changeTextView();
+        //        changeTextView();
+        //drinks.add(drinkName);
+        Order order = new Order();
+        order.storeInfo = (String)storeSpinner.getSelectedItem();
+        order.note = note;
+        order.drinkName = drinkName;
+        orders.add(order);
+        textView.setText(drinkName);
         editText.setText("");
         setupListView();
+        setupSpinner();
+
 
     }
 
@@ -99,9 +127,32 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(content);
         }
     }
+
+    void setupSpinner(){
+        String[] data = getResources().getStringArray(R.array.storeInfo);
+        ArrayAdapter<String> adapter  = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,data);
+        storeSpinner.setAdapter(adapter);
+    }
+
     void setupListView(){
-        String[] data =new String[]{"123","456","789","Hello","ListView","Hi"};
-        ArrayAdapter<String>adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
+        //String[] data =new String[]{"123","456","789","Hello","ListView","Hi"};
+        //ArrayAdapter<String>adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,drinks);
+        /*
+        List<Map<String,String>> data= new ArrayList<>();
+        for(int i =0;i<orders.size();i++){
+            Order order = orders.get(i);
+            Map<String,String>item=new HashMap<>();
+            item.put("note",order.note);
+            item.put("drinkName",order.drinkName);
+            data.add(item);
+
+        }
+        String[] from ={"note","drinkName"};
+        int[] to ={R.id.noteTextView,R.id.drinkNameTextView};
+        SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.listview_order_item, from, to);
+        listview.setAdapter(adapter);
+        */
+        OrderAdapter adapter = new OrderAdapter(this, orders);
         listview.setAdapter(adapter);
     }
 }
