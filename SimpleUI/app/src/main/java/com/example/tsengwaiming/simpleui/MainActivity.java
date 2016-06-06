@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
         checkBox = (CheckBox) findViewById(R.id.checkBox);
         listview = (ListView) findViewById(R.id.listView);
 
-        String[] data =new String[]{"123","456","789","Hello","ListView","Hi"};
-        ArrayAdapter<String>adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
-        listview.setAdapter(adapter);
+
+
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         sex=selectedSex;
         changeTextView();
         editText.setText("");
+        setupListView();
 
     }
 
@@ -98,5 +99,9 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(content);
         }
     }
-
+    void setupListView(){
+        String[] data =new String[]{"123","456","789","Hello","ListView","Hi"};
+        ArrayAdapter<String>adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
+        listview.setAdapter(adapter);
+    }
 }
