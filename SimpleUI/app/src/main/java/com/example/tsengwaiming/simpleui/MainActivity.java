@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
     RadioGroup radioGroup;
     CheckBox checkBox;
+    ListView listview;
     String name="";
     String sex="";
     String selectedSex = "Male";
@@ -34,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
         editText = (EditText) findViewById(R.id.editText);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         checkBox = (CheckBox) findViewById(R.id.checkBox);
+        listview = (ListView) findViewById(R.id.listView);
 
+        String[] data =new String[]{"123","456","789","Hello","ListView","Hi"};
+        ArrayAdapter<String>adapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
+        listview.setAdapter(adapter);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -80,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeTextView(){
+        if (name.equals("")){
+            return;
+        }
         if (checkBox.isChecked()){
             textView.setText(name);
         }else{
