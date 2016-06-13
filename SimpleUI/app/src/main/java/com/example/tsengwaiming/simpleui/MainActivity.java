@@ -1,5 +1,6 @@
 package com.example.tsengwaiming.simpleui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -93,6 +94,52 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        Log.d("Debug","Main Activity onCreate");
+    }
+
+    @Override
+    protected  void onStart(){
+        super.onStart();
+        Log.d("Debug","Main Activity onStart");
+    }
+
+    @Override
+    protected  void onStop(){
+        super.onStop();
+        Log.d("Debug","Main Activity onStop");
+    }
+
+    @Override
+    protected  void onDestroy(){
+        super.onDestroy();
+        Log.d("Debug","Main Activity onDestroy");
+    }
+
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        Log.d("Debug","Main Activity onResume");
+    }
+
+    @Override
+    protected  void onRestart(){
+        super.onRestart();
+        Log.d("Debug","Main Activity onRestart");
+    }
+
+
+    @Override
+    protected  void onPause(){
+        super.onPause();
+        Log.d("Debug","Main Activity onPause");
+    }
+
+    public void goToMenu(View view)
+    {
+        Intent intent = new Intent();
+        intent.setClass(this,DrinkMenuActivity.class);
+        startActivity(intent);
+
     }
 
     public void click(View view)
