@@ -43,7 +43,8 @@
         android:layout_toRightOf="@+id/priceTextview"
         android:layout_toEndOf="@+id/priceTextview"
         android:layout_marginLeft="149dp"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:onClick="done" />
 
     <TextView
         android:layout_width="wrap_content"
