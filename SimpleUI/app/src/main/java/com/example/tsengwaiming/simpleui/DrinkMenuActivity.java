@@ -1,6 +1,8 @@
 package com.example.tsengwaiming.simpleui;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +17,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrinkMenuActivity extends AppCompatActivity {
+public class DrinkMenuActivity extends AppCompatActivity implements DrinkOrderDialog.OnFragmentInteractionListener {
 
     ListView drinkListView;
     TextView priceTextView;
@@ -37,20 +39,39 @@ public class DrinkMenuActivity extends AppCompatActivity {
         drinkListView = (ListView)findViewById(R.id.drinkListView);
         priceTextView = (TextView)findViewById(R.id.priceTextview);
         setupListView();
+
         drinkListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DrinkAdapter drinkAdapter = (DrinkAdapter)adapterView.getAdapter();
-                Drink drink = (Drink)drinkAdapter.getItem(i);
-                drinkOrders.add(drink);
-                updateTotalPrice();
-
-
+                Drink drink = (Drink)adapterView.getAdapter().getItem(i);
+                ShowDetailDrinkMenu(drink);
             }
 
         });
 
+
         Log.d("Debug","activity_drink_menu Activity onCreate");
+    }
+
+    private void ShowDetailDrinkMenu(Drink drink)
+    {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction ft=fragmentManager.beginTransaction();
+        DrinkOrder drinkOrder = new DrinkOrder();
+
+        drinkOrder.mPrice = drink.mPrice;
+        drinkOrder.lPrice = drink.lPrice;
+        drinkOrder.drinkName= drink.name;
+
+
+        DrinkOrderDialog orderDialog = DrinkOrderDialog.newInstance(drinkOrder );
+
+        orderDialog.show(ft,"DrinkOrderDialog");
+//        ft.replace(R.id.root, orderDialog);
+//        ft.addToBackStack(null);
+//        ft.commit();
+
+
     }
 
     private void updateTotalPrice(){
