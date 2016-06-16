@@ -152,12 +152,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode,int resultCode,Intent data ){
-        super.onActivityResult(requestCode,resultCode,data);
-        if (requestCode == REQUEST_CODE_DRINK_MENU_ACTIVITY){
-            if(resultCode==RESULT_OK){
+    protected void onActivityResult(int requestCode,int resultCode,Intent data ) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_DRINK_MENU_ACTIVITY) {
+            if (resultCode == RESULT_OK) {
                 textView.setText(data.getStringExtra("results"));
-                Toast.makeText(this,"完成菜單",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "完成菜單", Toast.LENGTH_LONG).show();
+            } else {
+                textView.setText(data.getStringExtra("results"));
+                Toast.makeText(this, "取消菜單", Toast.LENGTH_LONG).show();
             }
         }
     }

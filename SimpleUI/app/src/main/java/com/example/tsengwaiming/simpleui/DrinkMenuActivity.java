@@ -25,7 +25,7 @@ public class DrinkMenuActivity extends AppCompatActivity {
     ArrayList<Drink> drinkOrders= new ArrayList();
 
     //SET DATA
-    String[] names = {"東瓜紅荼","玫瑰奶蓋荼","珍珠紅荼拿鐡","隨便"};
+    String[] names = {"東瓜紅荼","玫瑰鹽奶蓋紅荼","珍珠紅荼拿鐡","紅荼拿鐡"};
     int[] mPrices = {25,35,45,35};
     int[] lPrice ={35,45,55,45};
     int[] imageId= {R.drawable.drink1,R.drawable.drink2,R.drawable.drink3,R.drawable.drink4};
@@ -76,12 +76,19 @@ public class DrinkMenuActivity extends AppCompatActivity {
             array.put(object);
         }
         intent.putExtra("results",array.toString());
-
         setResult(RESULT_OK,intent);
         finish();
 
     }
 
+    public void cancel(View view){
+        Intent intent = new Intent();
+        JSONArray array = new JSONArray();
+        intent.putExtra("results",array.toString());
+        setResult(1,intent);
+        finish();
+
+    }
     private void setData()
     {
         for(int i = 0 ; i<4 ;i++)
